@@ -1,7 +1,6 @@
 package com.datricle.project.uber.UberApp.entities;
 
 import com.datricle.project.uber.UberApp.entities.enums.PaymentMethod;
-import com.datricle.project.uber.UberApp.entities.enums.RideRequestStatus;
 import com.datricle.project.uber.UberApp.entities.enums.RideStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
