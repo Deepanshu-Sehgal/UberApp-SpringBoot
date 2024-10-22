@@ -5,7 +5,6 @@ import com.datricle.project.uber.UberApp.entities.enums.RideStatus;
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.locationtech.jts.geom.Point;
-
 import java.time.LocalDateTime;
 
 @Entity
