@@ -5,8 +5,7 @@ import com.datricle.project.uber.UberApp.strategies.RideFareCalculationStrategy;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RideFareCalculationStrategyImpl implements RideFareCalculationStrategy
-{
+public class RideFareDefaultFareCalculationStrategyImpl implements RideFareCalculationStrategy {
     @Override
     public double calculateFare(RideRequestDto rideRequestDto) {
         return 0;
