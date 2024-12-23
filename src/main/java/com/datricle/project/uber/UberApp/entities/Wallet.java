@@ -19,5 +19,4 @@ public class Wallet {
     @OneToMany(mappedBy = "wallet",fetch = FetchType.LAZY)
     private List<WalletTransaction> transactions;
 
-
 }

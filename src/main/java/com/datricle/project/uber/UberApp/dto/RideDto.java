@@ -21,6 +21,7 @@ public class RideDto {
     private RiderDto rider;
     private PaymentMethod paymentMethod;
     private RideStatus rideStatus;
+    private String otp;
     private Double fare;
     private LocalDateTime statedAt;
     private LocalDateTime endedAt;
