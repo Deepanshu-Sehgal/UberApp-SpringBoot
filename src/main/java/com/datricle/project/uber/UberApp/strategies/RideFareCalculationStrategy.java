@@ -4,6 +4,7 @@ import com.datricle.project.uber.UberApp.dto.RideRequestDto;
 import com.datricle.project.uber.UberApp.entities.RideRequest;
 
 public interface RideFareCalculationStrategy {
-    double calculateFare(RideRequestDto rideRequestDto);
+    double RIDE_FARE_MULTIPLIER = 10;
+    double calculateFare(RideRequest rideRequest);
 
 }

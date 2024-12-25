@@ -6,7 +6,10 @@ import com.datricle.project.uber.UberApp.dto.RideRequestDto;
 import com.datricle.project.uber.UberApp.dto.RiderDto;
 import com.datricle.project.uber.UberApp.entities.RideRequest;
 import com.datricle.project.uber.UberApp.entities.enums.RideRequestStatus;
+import com.datricle.project.uber.UberApp.repositories.RideRequestRepository;
 import com.datricle.project.uber.UberApp.services.RiderService;
+import com.datricle.project.uber.UberApp.strategies.DriverMatchingStrategy;
+import com.datricle.project.uber.UberApp.strategies.RideFareCalculationStrategy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -20,12 +23,22 @@ import java.util.List;
 public class RiderServiceImpl implements RiderService {
 
     private final ModelMapper modelMapper;
+    private final RideFareCalculationStrategy rideFareCalculationStrategy;
+    private  final DriverMatchingStrategy driverMatchingStrategy;
+    private final RideRequestRepository rideRequestRepository;
 
     @Override
     public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
         RideRequest rideRequest = modelMapper.map(rideRequestDto,RideRequest.class);
         rideRequest.setRideRequestStatus(RideRequestStatus.PENDING);
-        return null;
+
+        Double fare = rideFareCalculationStrategy.calculateFare(rideRequest);
+        rideRequest.setFare(fare);
+
+        RideRequest savedRideRequest = rideRequestRepository.save(rideRequest);
+
+        driverMatchingStrategy.findMatchingDriver(rideRequest);
+        return modelMapper.map(savedRideRequest,RideRequestDto.class );
     }
 
     @Override
