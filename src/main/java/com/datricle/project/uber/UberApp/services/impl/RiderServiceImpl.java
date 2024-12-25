@@ -4,15 +4,27 @@ import com.datricle.project.uber.UberApp.dto.DriverDto;
 import com.datricle.project.uber.UberApp.dto.RideDto;
 import com.datricle.project.uber.UberApp.dto.RideRequestDto;
 import com.datricle.project.uber.UberApp.dto.RiderDto;
+import com.datricle.project.uber.UberApp.entities.RideRequest;
+import com.datricle.project.uber.UberApp.entities.enums.RideRequestStatus;
 import com.datricle.project.uber.UberApp.services.RiderService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class RiderServiceImpl implements RiderService {
+
+    private final ModelMapper modelMapper;
+
     @Override
     public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
+        RideRequest rideRequest = modelMapper.map(rideRequestDto,RideRequest.class);
+        rideRequest.setRideRequestStatus(RideRequestStatus.PENDING);
         return null;
     }
 
