@@ -5,8 +5,11 @@ import com.datricle.project.uber.UberApp.dto.RideDto;
 import com.datricle.project.uber.UberApp.dto.RideRequestDto;
 import com.datricle.project.uber.UberApp.dto.RiderDto;
 import com.datricle.project.uber.UberApp.entities.RideRequest;
+import com.datricle.project.uber.UberApp.entities.Rider;
+import com.datricle.project.uber.UberApp.entities.User;
 import com.datricle.project.uber.UberApp.entities.enums.RideRequestStatus;
 import com.datricle.project.uber.UberApp.repositories.RideRequestRepository;
+import com.datricle.project.uber.UberApp.repositories.RiderRepository;
 import com.datricle.project.uber.UberApp.services.RiderService;
 import com.datricle.project.uber.UberApp.strategies.DriverMatchingStrategy;
 import com.datricle.project.uber.UberApp.strategies.RideFareCalculationStrategy;
@@ -26,6 +29,7 @@ public class RiderServiceImpl implements RiderService {
     private final RideFareCalculationStrategy rideFareCalculationStrategy;
     private  final DriverMatchingStrategy driverMatchingStrategy;
     private final RideRequestRepository rideRequestRepository;
+    private final RiderRepository riderRepository;
 
     @Override
     public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
@@ -59,5 +63,15 @@ public class RiderServiceImpl implements RiderService {
     @Override
     public List<RideDto> getAllMyRider() {
         return List.of();
+    }
+
+    @Override
+    public Rider createNewRider(User user) {
+        Rider rider = Rider
+                .builder()
+                .user(user)
+                .rating(0.0)
+                .build();
+        return riderRepository.save(rider);
     }
 }
