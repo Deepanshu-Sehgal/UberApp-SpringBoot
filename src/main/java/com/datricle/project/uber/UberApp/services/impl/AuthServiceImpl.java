@@ -5,7 +5,7 @@ import com.datricle.project.uber.UberApp.dto.SignUpDto;
 import com.datricle.project.uber.UberApp.dto.UserDto;
 import com.datricle.project.uber.UberApp.entities.User;
 import com.datricle.project.uber.UberApp.entities.enums.Role;
-import com.datricle.project.uber.UberApp.exceptions.RunTimeConflictException;
+import com.datricle.project.uber.UberApp.exceptions.RuntimeConflictException;
 import com.datricle.project.uber.UberApp.repositories.UserRepository;
 import com.datricle.project.uber.UberApp.services.AuthService;
 import com.datricle.project.uber.UberApp.services.RiderService;
@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
     public UserDto signup(SignUpDto signUpDto) {
 
         userRepository.findByEmail(signUpDto.getEmail()).orElseThrow(() ->
-                new RunTimeConflictException("Cannot signup, User Already exist with email " + signUpDto.getEmail()));
+                new RuntimeConflictException("Cannot signup, User Already exist with email " + signUpDto.getEmail()));
 
         User mappedUser = modelMapper.map(signUpDto, User.class);
         mappedUser.setRoles(Set.of(Role.RIDER));
