@@ -34,6 +34,7 @@ public class RiderServiceImpl implements RiderService {
 
     @Override
     public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
+        Rider rider = getCurrentRider();
         RideRequest rideRequest = modelMapper.map(rideRequestDto,RideRequest.class);
         rideRequest.setRideRequestStatus(RideRequestStatus.PENDING);
 
@@ -42,7 +43,7 @@ public class RiderServiceImpl implements RiderService {
 
         RideRequest savedRideRequest = rideRequestRepository.save(rideRequest);
 
-        strategyManager.driverMatchingStrategy().findMatchingDriver(rideRequest);
+        strategyManager.driverMatchingStrategy(rider.getRating()).findMatchingDriver(rideRequest);
         return modelMapper.map(savedRideRequest,RideRequestDto.class );
     }
 
