@@ -1,6 +1,5 @@
 package com.datricle.project.uber.UberApp.dto;
 
-import com.datricle.project.uber.UberApp.entities.Driver;
 import com.datricle.project.uber.UberApp.entities.enums.PaymentMethod;
 import com.datricle.project.uber.UberApp.entities.enums.RideStatus;
 import lombok.AllArgsConstructor;

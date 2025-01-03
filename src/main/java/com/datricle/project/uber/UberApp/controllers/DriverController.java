@@ -3,7 +3,6 @@ package com.datricle.project.uber.UberApp.controllers;
 import com.datricle.project.uber.UberApp.dto.RideDto;
 import com.datricle.project.uber.UberApp.services.DriverService;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

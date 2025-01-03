@@ -3,11 +3,20 @@ package com.datricle.project.uber.UberApp.entities;
 import com.datricle.project.uber.UberApp.entities.enums.PaymentMethod;
 import com.datricle.project.uber.UberApp.entities.enums.RideStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.locationtech.jts.geom.Point;
+
 import java.time.LocalDateTime;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Ride {
 
     @Id

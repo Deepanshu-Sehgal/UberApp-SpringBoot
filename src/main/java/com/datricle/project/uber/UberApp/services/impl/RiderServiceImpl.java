@@ -13,8 +13,6 @@ import com.datricle.project.uber.UberApp.exceptions.ResourceNotFoundException;
 import com.datricle.project.uber.UberApp.repositories.RideRequestRepository;
 import com.datricle.project.uber.UberApp.repositories.RiderRepository;
 import com.datricle.project.uber.UberApp.services.RiderService;
-import com.datricle.project.uber.UberApp.strategies.DriverMatchingStrategy;
-import com.datricle.project.uber.UberApp.strategies.RideFareCalculationStrategy;
 import com.datricle.project.uber.UberApp.strategies.RideStrategyManager;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
