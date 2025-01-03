@@ -4,6 +4,7 @@ import com.datricle.project.uber.UberApp.dto.DriverDto;
 import com.datricle.project.uber.UberApp.dto.RideDto;
 import com.datricle.project.uber.UberApp.dto.RideRequestDto;
 import com.datricle.project.uber.UberApp.dto.RiderDto;
+import com.datricle.project.uber.UberApp.entities.Driver;
 import com.datricle.project.uber.UberApp.entities.RideRequest;
 import com.datricle.project.uber.UberApp.entities.Rider;
 import com.datricle.project.uber.UberApp.entities.User;
@@ -44,8 +45,10 @@ public class RiderServiceImpl implements RiderService {
 
         RideRequest savedRideRequest = rideRequestRepository.save(rideRequest);
 
-        strategyManager.driverMatchingStrategy(rider.getRating()).findMatchingDriver(rideRequest);
+        List<Driver> drivers = strategyManager.driverMatchingStrategy(rider.getRating()).findMatchingDriver(rideRequest);
+        //TODO: send notifications to all the drivers about this ride request
         return modelMapper.map(savedRideRequest,RideRequestDto.class );
+
     }
 
     @Override
