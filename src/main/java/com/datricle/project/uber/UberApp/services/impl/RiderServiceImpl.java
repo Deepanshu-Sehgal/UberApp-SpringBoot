@@ -81,6 +81,6 @@ public class RiderServiceImpl implements RiderService {
 
     @Override
     public Rider getCurrentRider() {
-        return riderRepository.findById(1L).orElseThrow(()-> new ResourceNotFoundException("Rider not found with id: "));
+        return riderRepository.findById(1L).orElseThrow(()-> new ResourceNotFoundException("Rider not found with id: "+1));
     }
 }

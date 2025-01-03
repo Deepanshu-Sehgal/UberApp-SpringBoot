@@ -43,8 +43,11 @@ public class DriverServiceImpl implements DriverService {
             throw new RuntimeException("Driver can't accept ride dur to unavailability");
         }
 
-        Ride ride = rideService.createNewRide(rideRequest,currentDriver);
-        return modelMapper.map(ride,RideDto.class);
+        currentDriver.setAvailable(false);
+        Driver savedDriver = driverRepository.save(currentDriver);
+
+        Ride ride = rideService.createNewRide(rideRequest,savedDriver);
+        return modelMapper.map(ride, RideDto.class);
     }
 
     @Override
