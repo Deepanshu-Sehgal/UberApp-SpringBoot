@@ -34,7 +34,7 @@ public class RiderServiceImpl implements RiderService {
     @Override
     public RideRequestDto requestRide(RideRequestDto rideRequestDto) {
         Rider rider = getCurrentRider();
-        RideRequest rideRequest = modelMapper.map(rideRequestDto,RideRequest.class);
+        RideRequest rideRequest = modelMapper.map(rideRequestDto, RideRequest.class);
         rideRequest.setRideRequestStatus(RideRequestStatus.PENDING);
         rideRequest.setRider(rider);
 
@@ -45,7 +45,7 @@ public class RiderServiceImpl implements RiderService {
 
         List<Driver> drivers = strategyManager.driverMatchingStrategy(rider.getRating()).findMatchingDriver(rideRequest);
         //TODO: send notifications to all the drivers about this ride request
-        return modelMapper.map(savedRideRequest,RideRequestDto.class );
+        return modelMapper.map(savedRideRequest, RideRequestDto.class);
 
     }
 
@@ -81,6 +81,6 @@ public class RiderServiceImpl implements RiderService {
 
     @Override
     public Rider getCurrentRider() {
-        return riderRepository.findById(1L).orElseThrow(()-> new ResourceNotFoundException("Rider not found with id: "+1));
+        return riderRepository.findById(1L).orElseThrow(() -> new ResourceNotFoundException("Rider not found with id: " + 1));
     }
 }

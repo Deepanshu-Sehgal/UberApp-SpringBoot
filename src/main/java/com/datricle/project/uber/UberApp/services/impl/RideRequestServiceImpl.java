@@ -11,18 +11,19 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class RideRequestServiceImpl implements RideRequestService {
     private final RideRequestRepository rideRequestRepository;
+
     @Override
     public RideRequest findRideRequestById(Long rideRequestId) {
         return rideRequestRepository.findById(rideRequestId).orElseThrow(
-                ()-> new ResourceNotFoundException("Ride Request now found with id: " + rideRequestId)
+                () -> new ResourceNotFoundException("Ride Request now found with id: " + rideRequestId)
         );
     }
 
     @Override
     public void update(RideRequest rideRequest) {
-       rideRequestRepository.findById(rideRequest.getId())
-               .orElseThrow(()-> new ResourceNotFoundException("Ride Request Not found with id"));
-       rideRequestRepository.save(rideRequest);
+        rideRequestRepository.findById(rideRequest.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Ride Request Not found with id"));
+        rideRequestRepository.save(rideRequest);
 
     }
 }

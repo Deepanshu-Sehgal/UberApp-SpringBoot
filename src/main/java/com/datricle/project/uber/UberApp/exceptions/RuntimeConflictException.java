@@ -1,6 +1,6 @@
 package com.datricle.project.uber.UberApp.exceptions;
 
-public class RuntimeConflictException extends RuntimeException{
+public class RuntimeConflictException extends RuntimeException {
     public RuntimeConflictException() {
     }
 

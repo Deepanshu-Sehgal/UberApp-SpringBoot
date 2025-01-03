@@ -28,8 +28,8 @@ public class RideServiceImpl implements RideService {
 
     @Override
     public Ride getRideById(Long rideId) {
-        return rideRepository.findById(rideId).orElseThrow(()->
-                new ResourceNotFoundException("Ride with this id not found "+ rideId));
+        return rideRepository.findById(rideId).orElseThrow(() ->
+                new ResourceNotFoundException("Ride with this id not found " + rideId));
     }
 
     @Override
@@ -41,7 +41,7 @@ public class RideServiceImpl implements RideService {
     public Ride createNewRide(RideRequest rideRequest, Driver driver) {
         rideRequest.setRideRequestStatus(RideRequestStatus.CONFIRMED);
 
-        Ride ride = modelMapper.map(rideRequest,Ride.class);
+        Ride ride = modelMapper.map(rideRequest, Ride.class);
         ride.setRideStatus(RideStatus.CONFIRMED);
         ride.setDriver(driver);
         ride.setOtp(generateRandomOTP());
@@ -67,10 +67,10 @@ public class RideServiceImpl implements RideService {
         return null;
     }
 
-    private String generateRandomOTP(){
+    private String generateRandomOTP() {
         Random random = new Random();
         int otpInt = random.nextInt(10000);  // 0 to 9999
-        return String.format("%04d",otpInt);
+        return String.format("%04d", otpInt);
 
     }
 }
