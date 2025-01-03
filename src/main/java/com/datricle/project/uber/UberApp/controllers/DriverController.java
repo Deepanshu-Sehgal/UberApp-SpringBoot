@@ -1,13 +1,11 @@
 package com.datricle.project.uber.UberApp.controllers;
 
 import com.datricle.project.uber.UberApp.dto.RideDto;
+import com.datricle.project.uber.UberApp.dto.RideStartDto;
 import com.datricle.project.uber.UberApp.services.DriverService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/drivers")
@@ -19,5 +17,10 @@ public class DriverController {
     @PostMapping("/acceptRide/{rideRequestId}")
     public ResponseEntity<RideDto> acceptRide(@PathVariable Long rideRequestId){
         return ResponseEntity.ok(driverService.acceptRide(rideRequestId));
+    }
+
+    @PostMapping("/startRide/{rideRequestId}")
+    public ResponseEntity<RideDto> startRide(@PathVariable Long rideRequestId,@RequestBody RideStartDto rideStartDto){
+        return ResponseEntity.ok(driverService.startRide(rideRequestId,rideStartDto.getOtp()));
     }
 }

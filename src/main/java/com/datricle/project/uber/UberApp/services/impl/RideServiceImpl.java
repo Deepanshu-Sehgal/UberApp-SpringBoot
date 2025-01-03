@@ -6,6 +6,7 @@ import com.datricle.project.uber.UberApp.entities.Ride;
 import com.datricle.project.uber.UberApp.entities.RideRequest;
 import com.datricle.project.uber.UberApp.entities.enums.RideRequestStatus;
 import com.datricle.project.uber.UberApp.entities.enums.RideStatus;
+import com.datricle.project.uber.UberApp.exceptions.ResourceNotFoundException;
 import com.datricle.project.uber.UberApp.repositories.RideRepository;
 import com.datricle.project.uber.UberApp.services.RideRequestService;
 import com.datricle.project.uber.UberApp.services.RideService;
@@ -27,7 +28,8 @@ public class RideServiceImpl implements RideService {
 
     @Override
     public Ride getRideById(Long rideId) {
-        return null;
+        return rideRepository.findById(rideId).orElseThrow(()->
+                new ResourceNotFoundException("Ride with this id not found "+ rideId));
     }
 
     @Override
