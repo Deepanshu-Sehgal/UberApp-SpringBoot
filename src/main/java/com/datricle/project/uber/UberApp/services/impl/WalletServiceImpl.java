@@ -1,5 +1,7 @@
 package com.datricle.project.uber.UberApp.services.impl;
 
+import com.datricle.project.uber.UberApp.dto.WalletTransactionDto;
+import com.datricle.project.uber.UberApp.entities.Ride;
 import com.datricle.project.uber.UberApp.entities.User;
 import com.datricle.project.uber.UberApp.entities.Wallet;
 import com.datricle.project.uber.UberApp.exceptions.ResourceNotFoundException;
@@ -15,11 +17,21 @@ public class WalletServiceImpl implements WalletService {
     private final WalletRepository walletRepository;
 
     @Override
-    public Wallet addMoneyToWallet(User user, Double amount) {
-        Wallet wallet = walletRepository.findByUser(user)
-                .orElseThrow(() -> new
-                        ResourceNotFoundException("Wallet not found for user with this id:" + user.getId()));
+    public Wallet addMoneyToWallet(User user, Double amount, String transactionId, Ride ride) {
+        Wallet wallet = findByUser(user);
         wallet.setBalance(wallet.getBalance() * amount);
+
+        WalletTransactionDto walletTransactionDto = WalletTransactionDto
+                .builder()
+                .transactionId()
+
+        return walletRepository.save(wallet);
+    }
+
+    @Override
+    public Wallet deductMoneyFromWallet(User user, Double amount) {
+        Wallet wallet = findByUser(user);
+        wallet.setBalance(wallet.getBalance() - amount);
         return walletRepository.save(wallet);
     }
 
@@ -40,5 +52,11 @@ public class WalletServiceImpl implements WalletService {
         wallet.setUser(user);
         return walletRepository.save(wallet);
 
+    }
+
+    @Override
+    public Wallet findByUser(User user) {
+        return walletRepository.findByUser(user)
+                .orElseThrow(() -> new ResourceNotFoundException("Wallet not found with this user id:" + user.getId()));
     }
 }
