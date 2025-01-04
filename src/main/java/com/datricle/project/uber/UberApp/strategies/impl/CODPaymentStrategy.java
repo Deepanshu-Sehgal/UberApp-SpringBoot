@@ -3,7 +3,7 @@ package com.datricle.project.uber.UberApp.strategies.impl;
 import com.datricle.project.uber.UberApp.entities.Driver;
 import com.datricle.project.uber.UberApp.entities.Payment;
 import com.datricle.project.uber.UberApp.entities.Wallet;
-import com.datricle.project.uber.UberApp.entities.WalletTransaction;
+import com.datricle.project.uber.UberApp.entities.enums.TransactionMethod;
 import com.datricle.project.uber.UberApp.services.WalletService;
 import com.datricle.project.uber.UberApp.strategies.PaymentStrategy;
 import lombok.RequiredArgsConstructor;
@@ -21,9 +21,8 @@ public class CODPaymentStrategy implements PaymentStrategy {
     @Override
     public void processPayment(Payment payment) {
         Driver driver = payment.getRide().getDriver();
-        Wallet driverWallet = walletService.findByUser(driver.getUser());
         double platformCommission = payment.getAmount() * PLATFORM_COMMISSION;
-        walletService.deductMoneyFromWallet(driver.getUser(),platformCommission);
+        walletService.deductMoneyFromWallet(driver.getUser(), platformCommission, null, payment.getRide(), TransactionMethod.RIDE);
 
 
     }

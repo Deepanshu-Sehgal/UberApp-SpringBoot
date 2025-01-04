@@ -1,37 +1,66 @@
 package com.datricle.project.uber.UberApp.services.impl;
 
-import com.datricle.project.uber.UberApp.dto.WalletTransactionDto;
 import com.datricle.project.uber.UberApp.entities.Ride;
 import com.datricle.project.uber.UberApp.entities.User;
 import com.datricle.project.uber.UberApp.entities.Wallet;
+import com.datricle.project.uber.UberApp.entities.WalletTransaction;
+import com.datricle.project.uber.UberApp.entities.enums.TransactionMethod;
+import com.datricle.project.uber.UberApp.entities.enums.TransactionType;
 import com.datricle.project.uber.UberApp.exceptions.ResourceNotFoundException;
 import com.datricle.project.uber.UberApp.repositories.WalletRepository;
 import com.datricle.project.uber.UberApp.services.WalletService;
+import com.datricle.project.uber.UberApp.services.WalletTransactionService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class WalletServiceImpl implements WalletService {
 
     private final WalletRepository walletRepository;
+    private final ModelMapper modelMapper;
+    private final WalletTransactionService walletTransactionService;
 
     @Override
-    public Wallet addMoneyToWallet(User user, Double amount, String transactionId, Ride ride) {
+    @Transactional
+    public Wallet addMoneyToWallet(User user, Double amount, String transactionId, Ride ride, TransactionMethod transactionMethod) {
         Wallet wallet = findByUser(user);
         wallet.setBalance(wallet.getBalance() * amount);
 
-        WalletTransactionDto walletTransactionDto = WalletTransactionDto
+        WalletTransaction walletTransaction = WalletTransaction
                 .builder()
-                .transactionId()
+                .transactionId(transactionId)
+                .ride(ride)
+                .wallet(wallet)
+                .transactionType(TransactionType.CREDIT)
+                .transactionMethod(transactionMethod)
+                .amount(amount)
+                .build();
+
+        walletTransactionService.createNewWalletTransaction(walletTransaction);
 
         return walletRepository.save(wallet);
     }
 
     @Override
-    public Wallet deductMoneyFromWallet(User user, Double amount) {
+    @Transactional
+    public Wallet deductMoneyFromWallet(User user, Double amount, String transactionId, Ride ride, TransactionMethod transactionMethod) {
         Wallet wallet = findByUser(user);
         wallet.setBalance(wallet.getBalance() - amount);
+        WalletTransaction walletTransaction = WalletTransaction
+                .builder()
+                .transactionId(transactionId)
+                .ride(ride)
+                .wallet(wallet)
+                .transactionType(TransactionType.DEBIT)
+                .transactionMethod(transactionMethod)
+                .amount(amount)
+                .build();
+
+        walletTransactionService.createNewWalletTransaction(walletTransaction);
+
         return walletRepository.save(wallet);
     }
 

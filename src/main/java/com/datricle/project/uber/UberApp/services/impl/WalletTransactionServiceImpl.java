@@ -16,8 +16,8 @@ public class WalletTransactionServiceImpl implements WalletTransactionService {
     private final ModelMapper modelMapper;
 
     @Override
-    public void createNewWalletTransaction(WalletTransactionDto walletTransactionDto) {
-        WalletTransaction walletTransaction = modelMapper.map(walletTransactionDto,WalletTransaction.class);
+    public void createNewWalletTransaction(WalletTransaction walletTransaction) {
+        WalletTransaction walletTransaction = modelMapper.map(walletTransaction,WalletTransaction.class);
         walletTransactionRepository.save(walletTransaction);
     }
 }
