@@ -46,8 +46,7 @@ public class DriverServiceImpl implements DriverService {
             throw new RuntimeException("Driver can't accept ride dur to unavailability");
         }
 
-        currentDriver.setAvailable(false);
-        Driver savedDriver = driverRepository.save(currentDriver);
+        Driver savedDriver = updateDriverAvailability(currentDriver, false);
 
         Ride ride = rideService.createNewRide(rideRequest, savedDriver);
         return modelMapper.map(ride, RideDto.class);
@@ -71,8 +70,7 @@ public class DriverServiceImpl implements DriverService {
         }
 
         rideService.updateRideStatus(ride, RideStatus.CANCELLED);
-        driver.setAvailable(true);
-        driverRepository.save(driver);
+        updateDriverAvailability(driver,true);
 
         return modelMapper.map(ride, RideDto.class);
     }
@@ -127,5 +125,12 @@ public class DriverServiceImpl implements DriverService {
     @Override
     public Driver getCurrentDriver() {
         return driverRepository.findById(2L).orElseThrow(() -> new ResourceNotFoundException("Driver not found with id " + 2L));
+    }
+
+    @Override
+    public Driver updateDriverAvailability(Driver driver, boolean available) {
+        driver.setAvailable(available);
+        driverRepository.save(driver);
+        return driver;
     }
 }
