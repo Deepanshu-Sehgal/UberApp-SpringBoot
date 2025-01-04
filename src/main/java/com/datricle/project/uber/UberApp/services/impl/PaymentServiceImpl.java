@@ -12,11 +12,8 @@ import org.springframework.stereotype.Service;
 public class PaymentServiceImpl implements PaymentService {
 
 
-
-
-
-
     private final PaymentRepository paymentRepository;
+
     @Override
     public void processPayment(Payment payment) {
 

@@ -1,4 +1,5 @@
 package com.datricle.project.uber.UberApp.dto;
+
 import lombok.Data;
 
 import java.util.List;

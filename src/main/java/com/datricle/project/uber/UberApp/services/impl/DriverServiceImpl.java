@@ -70,7 +70,7 @@ public class DriverServiceImpl implements DriverService {
         }
 
         rideService.updateRideStatus(ride, RideStatus.CANCELLED);
-        updateDriverAvailability(driver,true);
+        updateDriverAvailability(driver, true);
 
         return modelMapper.map(ride, RideDto.class);
     }

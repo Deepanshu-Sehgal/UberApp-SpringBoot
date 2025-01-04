@@ -1,6 +1,5 @@
 package com.datricle.project.uber.UberApp.services.impl;
 
-import com.datricle.project.uber.UberApp.dto.WalletTransactionDto;
 import com.datricle.project.uber.UberApp.entities.WalletTransaction;
 import com.datricle.project.uber.UberApp.repositories.WalletTransactionRepository;
 import com.datricle.project.uber.UberApp.services.WalletTransactionService;
@@ -17,7 +16,7 @@ public class WalletTransactionServiceImpl implements WalletTransactionService {
 
     @Override
     public void createNewWalletTransaction(WalletTransaction walletTransaction) {
-        WalletTransaction walletTransaction = modelMapper.map(walletTransaction,WalletTransaction.class);
+        WalletTransaction walletTransaction = modelMapper.map(walletTransaction, WalletTransaction.class);
         walletTransactionRepository.save(walletTransaction);
     }
 }

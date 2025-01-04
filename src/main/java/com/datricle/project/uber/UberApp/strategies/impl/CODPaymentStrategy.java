@@ -2,7 +2,6 @@ package com.datricle.project.uber.UberApp.strategies.impl;
 
 import com.datricle.project.uber.UberApp.entities.Driver;
 import com.datricle.project.uber.UberApp.entities.Payment;
-import com.datricle.project.uber.UberApp.entities.Wallet;
 import com.datricle.project.uber.UberApp.entities.enums.TransactionMethod;
 import com.datricle.project.uber.UberApp.services.WalletService;
 import com.datricle.project.uber.UberApp.strategies.PaymentStrategy;

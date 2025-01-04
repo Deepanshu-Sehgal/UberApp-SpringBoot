@@ -1,6 +1,5 @@
 package com.datricle.project.uber.UberApp.services.impl;
 
-import com.datricle.project.uber.UberApp.dto.RideRequestDto;
 import com.datricle.project.uber.UberApp.entities.Driver;
 import com.datricle.project.uber.UberApp.entities.Ride;
 import com.datricle.project.uber.UberApp.entities.RideRequest;
@@ -56,12 +55,12 @@ public class RideServiceImpl implements RideService {
 
     @Override
     public Page<Ride> getAllRidesOfRider(Rider rider, PageRequest pageRequest) {
-        return rideRepository.findByRider(rider,pageRequest);
+        return rideRepository.findByRider(rider, pageRequest);
     }
 
     @Override
     public Page<Ride> getAllRidesOfDriver(Driver driver, PageRequest pageRequest) {
-        return rideRepository.findByDriver(driver,pageRequest);
+        return rideRepository.findByDriver(driver, pageRequest);
     }
 
     private String generateRandomOTP() {
