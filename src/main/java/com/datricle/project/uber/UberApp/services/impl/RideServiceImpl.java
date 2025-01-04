@@ -32,10 +32,6 @@ public class RideServiceImpl implements RideService {
                 new ResourceNotFoundException("Ride with this id not found " + rideId));
     }
 
-    @Override
-    public void matchWithDrivers(RideRequestDto rideRequestDto) {
-
-    }
 
     @Override
     public Ride createNewRide(RideRequest rideRequest, Driver driver) {
