@@ -20,14 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class WalletServiceImpl implements WalletService {
 
     private final WalletRepository walletRepository;
-    private final ModelMapper modelMapper;
-    private final WalletTransactionService walletTransactionService;
+    private final WalletTransactionService  walletTransactionService;
 
     @Override
     @Transactional
     public Wallet addMoneyToWallet(User user, Double amount, String transactionId, Ride ride, TransactionMethod transactionMethod) {
         Wallet wallet = findByUser(user);
-        wallet.setBalance(wallet.getBalance() * amount);
+        wallet.setBalance(wallet.getBalance() + amount);
 
         WalletTransaction walletTransaction = WalletTransaction
                 .builder()
@@ -59,7 +58,8 @@ public class WalletServiceImpl implements WalletService {
                 .amount(amount)
                 .build();
 
-        walletTransactionService.createNewWalletTransaction(walletTransaction);
+//        walletTransactionService.createNewWalletTransaction(walletTransaction);
+        wallet.getTransactions().add(walletTransaction);
 
         return walletRepository.save(wallet);
     }
