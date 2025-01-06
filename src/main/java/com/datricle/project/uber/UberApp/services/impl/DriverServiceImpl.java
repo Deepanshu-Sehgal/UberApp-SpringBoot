@@ -10,10 +10,7 @@ import com.datricle.project.uber.UberApp.entities.enums.RideRequestStatus;
 import com.datricle.project.uber.UberApp.entities.enums.RideStatus;
 import com.datricle.project.uber.UberApp.exceptions.ResourceNotFoundException;
 import com.datricle.project.uber.UberApp.repositories.DriverRepository;
-import com.datricle.project.uber.UberApp.services.DriverService;
-import com.datricle.project.uber.UberApp.services.PaymentService;
-import com.datricle.project.uber.UberApp.services.RideRequestService;
-import com.datricle.project.uber.UberApp.services.RideService;
+import com.datricle.project.uber.UberApp.services.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -32,6 +29,7 @@ public class DriverServiceImpl implements DriverService {
     private final RideService rideService;
     private final ModelMapper modelMapper;
     private final PaymentService paymentService;
+    private final RatingService ratingService;
 
     @Override
     @Transactional
@@ -98,6 +96,7 @@ public class DriverServiceImpl implements DriverService {
         Ride savedRide = rideService.updateRideStatus(ride, RideStatus.ONGOING);
 
         paymentService.createNewPayment(savedRide);
+        ratingService.createNewRating(savedRide);
         return modelMapper.map(savedRide, RideDto.class);
     }
 
@@ -136,8 +135,7 @@ public class DriverServiceImpl implements DriverService {
             throw new RuntimeException("Ride status is not ENDED hence cannot start rating, status: " + ride.getRideStatus());
         }
 
-
-        return null;
+        return ratingService.rateRider(ride,rating);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class DriverController {
     }
 
     @PostMapping("/rateRider")
-    public ResponseEntity<RiderDto> rateDriver(@RequestBody RatingDto ratingDto) {
+    public ResponseEntity<RiderDto> rateRider(@RequestBody RatingDto ratingDto) {
         return ResponseEntity.ok(driverService.rateRider(ratingDto.getRideId(), ratingDto.getRating()));
     }
 
@@ -52,5 +52,10 @@ public class DriverController {
         PageRequest pageRequest = PageRequest.of(pageOffset, pageSize,
                 Sort.by(Sort.Direction.DESC, "createdTime", "id"));
         return ResponseEntity.ok(driverService.getAllMyRider(pageRequest));
+    }
+
+    @PostMapping("/rateRider{riderId}/{rating}")
+    public ResponseEntity<RiderDto> rateRider(@PathVariable Long riderId, @PathVariable Integer rating) {
+        return ResponseEntity.ok(driverService.rateRider(riderId, rating));
     }
 }
