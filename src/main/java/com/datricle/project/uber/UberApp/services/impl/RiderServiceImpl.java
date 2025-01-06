@@ -86,7 +86,7 @@ public class RiderServiceImpl implements RiderService {
             throw new RuntimeException("Ride status is not ENDED hence cannot start rating, status: " + ride.getRideStatus());
         }
 
-        return ratingService.rateDriver(ride,rating);
+        return ratingService.rateDriver(ride, rating);
     }
 
     @Override
