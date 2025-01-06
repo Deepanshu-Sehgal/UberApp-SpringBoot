@@ -29,4 +29,7 @@ public class AuthController {
 
     }
 
+    @PostMapping("/login")
+    ResponseEntity<UserDto> login()
+
 }
