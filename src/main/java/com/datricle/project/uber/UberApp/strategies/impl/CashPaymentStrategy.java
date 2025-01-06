@@ -5,7 +5,6 @@ import com.datricle.project.uber.UberApp.entities.Payment;
 import com.datricle.project.uber.UberApp.entities.enums.PaymentStatus;
 import com.datricle.project.uber.UberApp.entities.enums.TransactionMethod;
 import com.datricle.project.uber.UberApp.repositories.PaymentRepository;
-import com.datricle.project.uber.UberApp.services.PaymentService;
 import com.datricle.project.uber.UberApp.services.WalletService;
 import com.datricle.project.uber.UberApp.strategies.PaymentStrategy;
 import lombok.RequiredArgsConstructor;

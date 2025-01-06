@@ -11,7 +11,6 @@ import com.datricle.project.uber.UberApp.repositories.WalletRepository;
 import com.datricle.project.uber.UberApp.services.WalletService;
 import com.datricle.project.uber.UberApp.services.WalletTransactionService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class WalletServiceImpl implements WalletService {
 
     private final WalletRepository walletRepository;
-    private final WalletTransactionService  walletTransactionService;
+    private final WalletTransactionService walletTransactionService;
 
     @Override
     @Transactional
