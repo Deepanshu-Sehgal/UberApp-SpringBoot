@@ -9,12 +9,16 @@ import com.datricle.project.uber.UberApp.entities.enums.Role;
 import com.datricle.project.uber.UberApp.exceptions.ResourceNotFoundException;
 import com.datricle.project.uber.UberApp.exceptions.RuntimeConflictException;
 import com.datricle.project.uber.UberApp.repositories.UserRepository;
+import com.datricle.project.uber.UberApp.security.JWTService;
 import com.datricle.project.uber.UberApp.services.AuthService;
 import com.datricle.project.uber.UberApp.services.DriverService;
 import com.datricle.project.uber.UberApp.services.RiderService;
 import com.datricle.project.uber.UberApp.services.WalletService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,12 +35,20 @@ public class AuthServiceImpl implements AuthService {
     private final WalletService walletService;
     private final DriverService driverService;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JWTService jwtService;
 
     @Override
     public String[] login(String email, String password) {
-        String tokens[] = new String[2];
 
-        return tokens;
+        Authentication authentication = authenticationManager.authenticate(new
+                UsernamePasswordAuthenticationToken(email, password));
+
+        User user = (User) authentication.getPrincipal();
+        String accessToken = jwtService.generateAccessToken(user);
+        String refreshToken = jwtService.generateRefreshToken(user);
+
+        return new String[]{accessToken, refreshToken};
     }
 
     @Override
