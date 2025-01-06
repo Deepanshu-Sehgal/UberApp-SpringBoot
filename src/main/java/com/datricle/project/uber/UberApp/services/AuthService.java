@@ -6,7 +6,7 @@ import com.datricle.project.uber.UberApp.dto.UserDto;
 
 public interface AuthService {
 
-    String login(String email, String password); //return tokens
+    String[] login(String email, String password); //return tokens
 
     UserDto signup(SignUpDto signUpDto);
 

@@ -33,8 +33,10 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public String login(String email, String password) {
-        return "";
+    public String[] login(String email, String password) {
+        String tokens[] = new String[2];
+
+        return tokens;
     }
 
     @Override

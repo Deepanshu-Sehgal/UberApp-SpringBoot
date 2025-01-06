@@ -1,9 +1,6 @@
 package com.datricle.project.uber.UberApp.controllers;
 
-import com.datricle.project.uber.UberApp.dto.DriverDto;
-import com.datricle.project.uber.UberApp.dto.OnBoardingDriverDto;
-import com.datricle.project.uber.UberApp.dto.SignUpDto;
-import com.datricle.project.uber.UberApp.dto.UserDto;
+import com.datricle.project.uber.UberApp.dto.*;
 import com.datricle.project.uber.UberApp.services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,6 +27,10 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    ResponseEntity<UserDto> login()
+    ResponseEntity<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+        String tokens[] = authService.login(loginRequestDto.getEmail(), loginRequestDto.getPassword());
+
+        return ResponseEntity.ok(new LoginResponseDto(tokens[0]));
+    }
 
 }
