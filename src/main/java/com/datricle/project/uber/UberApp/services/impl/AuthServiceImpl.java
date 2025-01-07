@@ -93,4 +93,12 @@ public class AuthServiceImpl implements AuthService {
         Driver savedDriver = driverService.createNewDriver(createDriver);
         return modelMapper.map(savedDriver, DriverDto.class);
     }
+
+    @Override
+    public String refreshToken(String refreshToken) {
+        Long userId = jwtService.getUserIdFromToken(refreshToken);
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found " + userId));
+
+        return jwtService.generateAccessToken(user);
+    }
 }
